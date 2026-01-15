@@ -66,9 +66,9 @@ npm run lint         # Run ESLint
 
 ## Architecture Decisions
 
-1. **FormProvider Scope**: The FormProvider is only wrapped around routes that need form state (`/formulario` and `/resultado`), not the entire app, to avoid hydration issues.
+1. **FormProvider Scope**: The FormProvider wraps the entire app in the root layout to ensure form state is shared across all routes (`/formulario` and `/resultado`). This is necessary because users navigate between these routes and need to maintain form data.
 
-2. **Server vs Client Components**: The landing page (`/`) is a server component for better performance. Form pages use client components due to interactivity requirements.
+2. **Server vs Client Components**: The landing page (`/`) is a server component for better performance. Form pages use client components due to interactivity requirements. The FormProvider is a client component that wraps children in the root layout.
 
 3. **PDF Generation**: Uses @react-pdf/renderer for client-side PDF generation. The signature is embedded as a base64 image.
 
