@@ -13,27 +13,34 @@ This is a Next.js web application that enables Colombian citizens to submit citi
 - **Signature Capture**: react-signature-canvas
 - **Icons**: lucide-react
 - **Testing**: Jest + React Testing Library
+- **Database**: Redis (via ioredis) for support counter
 
 ## Project Structure
 
 ```
 ├── app/                    # Next.js App Router pages
 │   ├── page.tsx           # Landing page
-│   ├── layout.tsx         # Root layout
+│   ├── layout.tsx         # Root layout with FormProvider
 │   ├── globals.css        # Global styles
+│   ├── api/
+│   │   └── counter/
+│   │       └── route.ts   # Support counter API (GET/POST)
 │   ├── formulario/        # Form wizard route
-│   │   ├── page.tsx
-│   │   └── layout.tsx     # FormProvider wrapper
-│   └── resultado/         # Results page route
-│       ├── page.tsx
-│       └── layout.tsx     # FormProvider wrapper
+│   │   └── page.tsx
+│   ├── resultado/         # Results page route
+│   │   └── page.tsx
+│   ├── privacidad/        # Privacy policy page
+│   │   └── page.tsx
+│   └── faq/               # FAQ page
+│       └── page.tsx
 ├── components/
 │   ├── ui/                # Reusable UI components
 │   │   ├── Button.tsx
 │   │   ├── Input.tsx
 │   │   ├── Select.tsx
 │   │   ├── ProgressBar.tsx
-│   │   └── CopyButton.tsx
+│   │   ├── CopyButton.tsx
+│   │   └── SupportCounter.tsx  # Displays support count from Redis
 │   ├── form/              # Form wizard components
 │   │   ├── FormWizard.tsx
 │   │   ├── PersonalInfoStep.tsx
@@ -120,9 +127,26 @@ Add to `COLOMBIAN_CITIES` array in `lib/constants.ts`
 - npm 9+
 - Deployed on Vercel
 
+### Environment Variables
+
+- `REDIS_URL` - Redis connection string for support counter (optional, counter returns 0 if not configured)
+
+## Support Counter Feature
+
+The app tracks how many citizens have completed the intervention process:
+
+1. **API Route** (`/api/counter`):
+   - `GET` - Returns current count
+   - `POST` - Increments count (called when user downloads PDF)
+
+2. **SupportCounter Component**: Displays the count on the landing page
+
+3. **Counter Increment**: Triggered in `resultado/page.tsx` when user downloads PDF (only once per session using `hasCountedSupport` state)
+
 ## Notes
 
 - All text is in Spanish (es-CO locale)
-- No backend required - all processing is client-side
-- User data is never sent to any server (privacy-focused)
+- Personal data is processed client-side only (privacy-focused)
+- User form data is never sent to any server
 - The form uses localStorage for persistence but clears on completion
+- Only the anonymous download count is tracked server-side
