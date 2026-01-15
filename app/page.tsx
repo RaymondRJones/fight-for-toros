@@ -199,11 +199,27 @@ export default function HomePage() {
       <footer className="py-8 bg-white border-t border-gray-200">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center text-gray-600 text-sm">
-            <p className="mb-2">
+            <p className="mb-4">
               <strong>Nota:</strong> Esta herramienta facilita el ejercicio de tu
               derecho constitucional. Tus datos no son almacenados en ningún servidor.
             </p>
-            <p>
+            <div className="flex items-center justify-center gap-6 mb-4">
+              <Link href="/privacidad" className="text-blue-600 hover:underline">
+                Política de Privacidad
+              </Link>
+              <Link href="/faq" className="text-blue-600 hover:underline">
+                Preguntas Frecuentes
+              </Link>
+              <a
+                href="https://github.com/RaymondRJones/fight-for-toros"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 hover:underline"
+              >
+                GitHub
+              </a>
+            </div>
+            <p className="text-gray-500">
               Expedientes: D-0016158, D-0016172 y D-0016193 | Ley 2385 de 2024
             </p>
           </div>
