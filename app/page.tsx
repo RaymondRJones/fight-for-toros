@@ -9,6 +9,7 @@ import {
   Scale,
   Users,
 } from 'lucide-react';
+import SupportCounter from '@/components/ui/SupportCounter';
 
 export default function HomePage() {
   return (
@@ -18,9 +19,14 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 py-16 sm:py-24">
           <div className="text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium mb-4">
               <Heart className="w-4 h-4" />
               Protección Animal en Colombia
+            </div>
+
+            {/* Support Counter */}
+            <div className="mb-6">
+              <SupportCounter />
             </div>
 
             {/* Title */}

@@ -26,6 +26,7 @@ export default function ResultadoPage() {
   const router = useRouter();
   const [pdfBlob, setPdfBlob] = useState<Blob | null>(null);
   const [isGenerating, setIsGenerating] = useState(true);
+  const [hasCountedSupport, setHasCountedSupport] = useState(false);
 
   useEffect(() => {
     // Check if form is complete
@@ -49,7 +50,7 @@ export default function ResultadoPage() {
     generatePdf();
   }, [formData, router]);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (pdfBlob) {
       const url = URL.createObjectURL(pdfBlob);
       const link = document.createElement('a');
@@ -59,6 +60,16 @@ export default function ResultadoPage() {
       link.click();
       document.body.removeChild(link);
       URL.revokeObjectURL(url);
+
+      // Increment support counter (only once per session)
+      if (!hasCountedSupport) {
+        try {
+          await fetch('/api/counter', { method: 'POST' });
+          setHasCountedSupport(true);
+        } catch (error) {
+          console.error('Error incrementing counter:', error);
+        }
+      }
     }
   };
 

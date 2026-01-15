@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@react-pdf/renderer": "^3.4.4",
+    "@vercel/kv": "^3.0.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.0.0",
     "lucide-react": "^0.320.0",
